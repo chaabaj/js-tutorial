@@ -16,7 +16,6 @@ function test()
     console.log("Hello world");
 }
 
-test();
 
 function testSetInterval()
 {
@@ -35,6 +34,31 @@ function testSetInterval()
     }, 25);
 }
 
+
+function asyncForEach(array, fn)
+{
+    var length = 0;
+
+    var iter = function(index)
+    {
+        if (index < array.length)
+        {
+            defer(function()
+            {
+                fn(array[index], index, array);
+                iter(index + 1);
+            });
+        }
+    };
+    iter(0);
+}
+
+asyncForEach([1, 2, 3, 4, 5, 6], function(item)
+{
+    console.log(item);
+});
+
+test();
 testSetInterval();
 
 
